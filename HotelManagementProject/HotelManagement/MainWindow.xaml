@@ -6,7 +6,15 @@
         xmlns:local="clr-namespace:HotelManagement"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="#FF13B2D0">
+        <Label Content="LOGIN" HorizontalAlignment="Left" Margin="325,61,0,0" VerticalAlignment="Top" Height="47" Width="110" FontWeight="Bold" FontFamily="Times New Roman" FontSize="30" Background="#FF13B2D0" Foreground="SeaGreen" />
+        <Label Content="Username:" HorizontalAlignment="Left" Margin="126,149,0,0" VerticalAlignment="Top" Width="114" FontWeight="Bold" FontSize="20" Foreground="Wheat" Height="40"/>
+        <Label Content="Password:" HorizontalAlignment="Left" Margin="126,228,0,0" VerticalAlignment="Top" Width="114" FontWeight="Bold" FontSize="20" Foreground="Wheat" Height="41"/>
+        <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Margin="280,161,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="252" Height="25" />
+        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="280,240,0,0"  VerticalAlignment="Top" Width="252" Height="25"/>
+        <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Left" Margin="340,288,0,0" VerticalAlignment="Top" Height="33" RenderTransformOrigin="1.795,0.55" Click="Button_Click" Width="66" FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Background="#FF5BE5EF"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="439,288,0,0" VerticalAlignment="Top" Height="33" RenderTransformOrigin="2.105,0.478" Width="70" FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Background="#FF5BE5EF"/>
 
-    </Grid>
+
+    </Grid>  
 </Window>
