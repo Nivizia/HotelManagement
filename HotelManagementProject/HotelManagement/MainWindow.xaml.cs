@@ -21,7 +21,7 @@ namespace HotelManagement
     /// </summary>
     public partial class MainWindow : Window
     {
-        ICustomerRepository _repo= new CustomerRepository();
+        ICustomerRepository _repo = new CustomerRepository();
         private readonly string _defaultEmail;
         private readonly string _defaultPassword;
         public MainWindow()
@@ -45,11 +45,11 @@ namespace HotelManagement
             // Check against default admin account
             if (username.Equals(_defaultEmail, StringComparison.OrdinalIgnoreCase) && password == _defaultPassword)
             {
-                
+
                 Management admin = new Management();
                 admin.Show();
                 this.Close();
-               
+
                 return;
             }
 
@@ -57,8 +57,9 @@ namespace HotelManagement
             var temp = _repo.CheckLogin(username, password);
             if (temp != null && temp.CustomerStatus == 1)
             {
-                
-                
+
+                CustomerInterface customerInterface = new CustomerInterface();
+                customerInterface.Show();
                 this.Close();
             }
             else
