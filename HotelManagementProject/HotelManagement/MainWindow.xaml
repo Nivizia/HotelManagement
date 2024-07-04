@@ -10,7 +10,7 @@
         <StackPanel HorizontalAlignment="Center" Margin="0,30,0,300">
             <Image Source="/Images/sky-hotels-high-resolution-logo-transparent.png" Width="350" Height="auto"/>
         </StackPanel>
-        <Label Content="LOGIN" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top" Height="50" Width="110" FontWeight="Bold" FontFamily="Times New Roman" FontSize="30" Background="#FF13B2D0" Foreground="SeaGreen" />
+        <Label Content="LOGIN" HorizontalAlignment="Center" Margin="0,145,0,0" VerticalAlignment="Top" Height="50" Width="110" FontWeight="Bold" FontFamily="Times New Roman" FontSize="30" Background="#FF13B2D0" Foreground="Wheat" />
         <Label Content="Username:" HorizontalAlignment="Left" Margin="225,200,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold" FontSize="20" Foreground="Wheat" Height="40"/>
         <Label Content="Password:" HorizontalAlignment="Left" Margin="225,240,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold" FontSize="20" Foreground="Wheat" Height="41"/>
         <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Margin="345,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="232" Height="25" />

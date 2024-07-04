@@ -11,5 +11,7 @@ namespace Repositories
         public Customer? CheckLogin(string Email, string password);
 
         public Customer? GetCustomerById(int id);
+
+        public bool UpdateCustomer(Customer updatedCustomer);
     }
 }
