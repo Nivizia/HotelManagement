@@ -58,9 +58,8 @@ namespace HotelManagement
             if (temp != null && temp.CustomerStatus == 1)
             {
 
-                CustomerInterface customerInterface = new CustomerInterface();
+                var customerInterface = new CustomerInterface(temp);
                 customerInterface.Show();
-                this.Close();
             }
             else
             {
