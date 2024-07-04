@@ -8,6 +8,8 @@ namespace Repositories
 {
     public interface ICustomerRepository
     {
-        public Customer? CheckLogin (string Email, string password);
+        public Customer? CheckLogin(string Email, string password);
+
+        public Customer? GetCustomerById(int id);
     }
 }

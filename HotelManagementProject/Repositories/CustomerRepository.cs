@@ -14,5 +14,7 @@ namespace Repositories
             var customer = CustomerDao.CheckLogin(Email, Password);
             return customer;
         }
+
+        public Customer? GetCustomerById(int id) => CustomerDao.GetCustomerById(id);
     }
 }

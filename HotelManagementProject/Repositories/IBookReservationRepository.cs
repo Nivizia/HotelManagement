@@ -10,5 +10,7 @@ namespace Repositories
     public interface IBookReservationRepository
     {
         public List<BookingReservation> GetBookingReservations();
+
+        public List<BookingReservation> GetBookingReservationsByCustomerId(int customerId);
     }
 }

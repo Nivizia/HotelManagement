@@ -36,5 +36,15 @@ namespace HotelManagement
             var bookingReservations = _repo.GetBookingReservations();
             dg_BoRe.ItemsSource = bookingReservations;
         }
+
+        private void bt_BoHi_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void bt_AccPro_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

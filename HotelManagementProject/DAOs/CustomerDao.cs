@@ -19,5 +19,16 @@ namespace DAOs
             }
             return customer;
         }
+
+        public static Customer? GetCustomerById(int id)
+        {
+            using FuminiHotelManagementContext _context = new FuminiHotelManagementContext();
+            var customer = _context.Customers.SingleOrDefault(c => c.CustomerId == id);
+            if (customer == null)
+            {
+                return null;
+            }
+            return customer;
+        }
     }
 }
