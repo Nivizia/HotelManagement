@@ -8,42 +8,53 @@
         Title="CustomerInterface" Height="450" Width="800">
     <Grid Loaded="Grid_Loaded">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="10">
-            <Button x:Name="bt_BoHi" Content="Booking History" Margin="0,10,0,0" Click="bt_BoHi_Click"/>
-            <Button x:Name="bt_AccPro" Content="Account Profile" Margin="0,10,0,0" Click="bt_AccPro_Click"/>
+        <StackPanel x:Name="Buttons" Grid.Column="0" Orientation="Vertical" Margin="10">
+            <Button x:Name="bt_BoHi" Content="Booking History" Margin="0,10,0,0" Click="bt_BoHi_Click" />
+            <Button x:Name="bt_AccPro" Content="Account Profile" Margin="0,10,0,0" Click="bt_AccPro_Click" />
+            <Button x:Name="bt_Logout" Content="Logout" Margin="0,10,0,0" Click="bt_Logout_Click"/>
         </StackPanel>
 
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <DataGrid x:Name="dg_BoRe" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="0" Grid.ColumnSpan="2" Margin="10" Visibility="Visible" Loaded="Grid_Loaded"/>
+            <DataGrid x:Name="dg_BoRe" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="0" Grid.ColumnSpan="2" Margin="10" Visibility="Collapsed" Loaded="Grid_Loaded" />
 
-            <StackPanel x:Name="Title" Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="50">
-                <Label Content="Fullname:" Margin="0,10,0,0"/>
-                <Label Content="Telephone:" Margin="0,10,0,0"/>
-                <Label Content="EmailAddress:" Margin="0,10,0,0"/>
-                <Label Content="CustomerBirthday:" Margin="0,10,0,0"/>
-                <Label Content="Password:" Margin="0,10,0,0"/>
+            <StackPanel x:Name="Title" Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="50" Visibility="Collapsed">
+                <Label Content="Fullname:" Margin="0,10,0,0" />
+                <Label Content="Telephone:" Margin="0,10,0,0" />
+                <Label Content="EmailAddress:" Margin="0,10,0,0" />
+                <Label Content="CustomerBirthday:" Margin="0,10,0,0" />
+                <Label Content="Password:" Margin="0,10,0,0" />
+                <Button x:Name="bt_Update" Content="Update" Margin="50,50,50,0" Click="bt_Update_Click"/>
             </StackPanel>
 
-            <StackPanel Name="Placeholder" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="50">
-                <Label x:Name="PH_Fullname" Content="FullnamePlaceHolder" HorizontalAlignment="Center" Margin="0,10,0,0" Width="180"/>
-                <Label x:Name="PH_Telephone" Content="TelephonePlaceHolder" Margin="0,10,0,0"/>
-                <Label Content="EmailPlaceHolder" Margin="0,10,0,0"/>
-                <Label Content="BirthdayPlaceHolder" Margin="0,10,0,0"/>
-                <Label Content="PasswordPlaceHolder" Margin="0,10,0,0"/>
+            <StackPanel Name="Placeholder" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="50" Visibility="Collapsed">
+                <Label x:Name="PH_Fullname" Content="FullnamePlaceHolder" HorizontalAlignment="Center" Margin="0,10,0,0" Width="180" />
+                <Label x:Name="PH_Telephone" Content="TelephonePlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_Email" Content="EmailPlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_Birthday" Content="BirthdayPlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_Password" Content="PasswordPlaceHolder" Margin="0,10,0,0" />
+            </StackPanel>
+
+            <StackPanel x:Name="Update" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="50" IsVisibleChanged="Update_IsVisibleChanged" Visibility="Collapsed">
+                <TextBox x:Name="txtb_Fullname" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="txtb_Fullname" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_Telephone" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Telephone" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_Email" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Email" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_Birthday" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Birthday" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_Password" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Password" VerticalAlignment="Top" Width="120" />
+                <Button x:Name="bt_Confirm" Content="Confirm" Margin="50,50,50,0" Click="bt_Confirm_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -60,6 +60,7 @@ namespace HotelManagement
 
                 var customerInterface = new CustomerInterface(temp);
                 customerInterface.Show();
+                this.Close();
             }
             else
             {
