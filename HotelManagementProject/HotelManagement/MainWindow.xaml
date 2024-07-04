@@ -11,17 +11,17 @@
             <Image Source="/Images/sky-hotels-high-resolution-logo-transparent.png" Width="350"/>
         </StackPanel>
         <StackPanel Background="#7F67E6FF" HorizontalAlignment="Center" Margin="0,145,0,50" Width="400" Height="175">
-        <Label Content="LOGIN" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="50" Width="110" FontWeight="Bold" FontFamily="Times New Roman" FontSize="30" Foreground="Wheat" />
+            <Label Content="LOGIN" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="50" Width="110" FontWeight="Bold" FontFamily="Times New Roman" FontSize="30" Foreground="Wheat" />
 
-        <Label Content="Username:" HorizontalAlignment="Center" Margin="-240,0,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold" FontSize="20" Foreground="Wheat" Height="40"/>
-        <Label Content="Password:" HorizontalAlignment="Center" Margin="-240,0,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold" FontSize="20" Foreground="Wheat" Height="40"/>
+            <Label Content="Username:" HorizontalAlignment="Center" Margin="-240,0,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold" FontSize="20" Foreground="Wheat" Height="40"/>
+            <Label Content="Password:" HorizontalAlignment="Center" Margin="-240,0,0,0" VerticalAlignment="Top" Width="110" FontWeight="Bold" FontSize="20" Foreground="Wheat" Height="40"/>
 
-        <TextBox     x:Name="txtUserName" HorizontalAlignment="Center" Margin="115,-73,0,0" VerticalAlignment="Top" Width="240" Height="24" />
-        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Center" Margin="115,-33,0,0" VerticalAlignment="Top" Width="240" Height="24"/>
+            <TextBox     x:Name="txtUserName" HorizontalAlignment="Center" Margin="115,-73,0,0" VerticalAlignment="Top" Width="240" Height="24" />
+            <PasswordBox x:Name="txtPassword" HorizontalAlignment="Center" Margin="115,-33,0,0" VerticalAlignment="Top" Width="240" Height="24"/>
 
-        <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Margin="-100,0,0,0" VerticalAlignment="Top" Height="40" RenderTransformOrigin="1.795,0.55" Click="Button_Click" Width="75" FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Background="#FF5BE5EF"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Center" Margin="100,-40,0,0" VerticalAlignment="Top" Height="40" RenderTransformOrigin="2.105,0.478" Width="75" FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Background="#FF5BE5EF"/>
-        
+            <Button x:Name="btnLogin"  Content="Login"  HorizontalAlignment="Center" Margin="-100,0,0,0"  VerticalAlignment="Top" Height="40" RenderTransformOrigin="1.795,0.55"  Click="Button_Click"    Width="75" FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Background="#FF5BE5EF"/>
+            <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Center" Margin="100,-40,0,0" VerticalAlignment="Top" Height="40" RenderTransformOrigin="2.105,0.478" Click="btnCancel_Click" Width="75" FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Background="#FF5BE5EF" />
+
 
         </StackPanel>
     </Grid>

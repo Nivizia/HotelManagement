@@ -6,16 +6,22 @@
         xmlns:local="clr-namespace:HotelManagement"
         mc:Ignorable="d"
         Title="CustomerInterface" Height="450" Width="800">
-    <Grid Loaded="Grid_Loaded">
+    <Grid Loaded="Grid_Loaded" Background="#FF13B2D0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel x:Name="Buttons" Grid.Column="0" Orientation="Vertical" Margin="10">
-            <Button x:Name="bt_BoHi" Content="Booking History" Margin="0,10,0,0" Click="bt_BoHi_Click" />
-            <Button x:Name="bt_AccPro" Content="Account Profile" Margin="0,10,0,0" Click="bt_AccPro_Click" />
-            <Button x:Name="bt_Logout" Content="Logout" Margin="0,10,0,0" Click="bt_Logout_Click"/>
+        <StackPanel x:Name="Buttons" Grid.Column="0" Orientation="Vertical" Margin="10" Background="#7F67E6FF">
+            <Button x:Name="bt_BoHi"   Content="Booking History" Margin="0,10,0,0" Width="200" FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Background="#FF5BE5EF"
+                    Click="bt_BoHi_Click"/>
+            <Button x:Name="bt_AccPro" Content="Account Profile" Margin="0,10,0,0" Width="200" FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Background="#FF5BE5EF"
+                    Click="bt_AccPro_Click"/>
+            <Button x:Name="bt_Logout" Content="Logout"          Margin="0,10,0,0" Width="200" FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Background="#FF5BE5EF"
+                    Click="bt_Logout_Click"/>
+            <StackPanel Background="#FF13B2D0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,275">
+                <Image Source="/Images/sky-hotels-high-resolution-logo-transparent.png" Width="200"/>
+            </StackPanel>
         </StackPanel>
 
         <Grid Grid.Column="1">
@@ -31,30 +37,31 @@
 
             <DataGrid x:Name="dg_BoRe" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="0" Grid.ColumnSpan="2" Margin="10" Visibility="Collapsed" Loaded="Grid_Loaded" />
 
-            <StackPanel x:Name="Title" Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="50" Visibility="Collapsed">
-                <Label Content="Fullname:" Margin="0,10,0,0" />
-                <Label Content="Telephone:" Margin="0,10,0,0" />
-                <Label Content="EmailAddress:" Margin="0,10,0,0" />
-                <Label Content="CustomerBirthday:" Margin="0,10,0,0" />
-                <Label Content="Password:" Margin="0,10,0,0" />
-                <Button x:Name="bt_Update" Content="Update" Margin="50,50,50,0" Click="bt_Update_Click"/>
+            <StackPanel x:Name="Title" Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="50,0,85,0" Visibility="Collapsed">
+                <Label Content="Fullname:"         Margin="0,10,0,0" FontSize="16" />
+                <Label Content="Telephone:"        Margin="0,10,0,0" FontSize="16" />
+                <Label Content="EmailAddress:"     Margin="0,10,0,0" FontSize="16" />
+                <Label Content="CustomerBirthday:" Margin="0,10,0,0" FontSize="16" />
+                <Label Content="Password:"         Margin="0,10,0,0" FontSize="16" />
+                <Button x:Name="bt_Update"        HorizontalAlignment="Left" Content="Update" Margin="0,50,0,0" Click="bt_Update_Click"        Width="150" FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Background="#FF5BE5EF" Visibility="Visible"/>
+                <Button x:Name="bt_Cancel_Update" HorizontalAlignment="Left" Content="Cancel" Margin="0,50,0,0" Click="bt_Cancel_Update_Click" Width="150" FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Background="#FF5BE5EF" Visibility="Collapsed"/>
             </StackPanel>
 
-            <StackPanel Name="Placeholder" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="50" Visibility="Collapsed">
-                <Label x:Name="PH_Fullname" Content="FullnamePlaceHolder" HorizontalAlignment="Center" Margin="0,10,0,0" Width="180" />
-                <Label x:Name="PH_Telephone" Content="TelephonePlaceHolder" Margin="0,10,0,0" />
-                <Label x:Name="PH_Email" Content="EmailPlaceHolder" Margin="0,10,0,0" />
-                <Label x:Name="PH_Birthday" Content="BirthdayPlaceHolder" Margin="0,10,0,0" />
-                <Label x:Name="PH_Password" Content="PasswordPlaceHolder" Margin="0,10,0,0" />
+            <StackPanel Name="Placeholder" Grid.Row="1" Orientation="Vertical" Margin="200,0,0,0" Visibility="Collapsed" Grid.ColumnSpan="2">
+                <Label x:Name="PH_Fullname"  HorizontalAlignment="Left" Content="FullnamePlaceHolder"  Margin="0,10,0,0" FontSize="16" Width="300" />
+                <Label x:Name="PH_Telephone" HorizontalAlignment="Left" Content="TelephonePlaceHolder" Margin="0,10,0,0" FontSize="16" Width="300" />
+                <Label x:Name="PH_Email"     HorizontalAlignment="Left" Content="EmailPlaceHolder"     Margin="0,10,0,0" FontSize="16" Width="300" />
+                <Label x:Name="PH_Birthday"  HorizontalAlignment="Left" Content="BirthdayPlaceHolder"  Margin="0,10,0,0" FontSize="16" Width="300" />
+                <Label x:Name="PH_Password"  HorizontalAlignment="Left" Content="PasswordPlaceHolder"  Margin="0,10,0,0" FontSize="16" Width="300" />
             </StackPanel>
 
-            <StackPanel x:Name="Update" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="50" IsVisibleChanged="Update_IsVisibleChanged" Visibility="Collapsed">
-                <TextBox x:Name="txtb_Fullname" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="txtb_Fullname" VerticalAlignment="Top" Width="120" />
-                <TextBox x:Name="txtb_Telephone" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Telephone" VerticalAlignment="Top" Width="120" />
-                <TextBox x:Name="txtb_Email" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Email" VerticalAlignment="Top" Width="120" />
-                <TextBox x:Name="txtb_Birthday" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Birthday" VerticalAlignment="Top" Width="120" />
-                <TextBox x:Name="txtb_Password" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Password" VerticalAlignment="Top" Width="120" />
-                <Button x:Name="bt_Confirm" Content="Confirm" Margin="50,50,50,0" Click="bt_Confirm_Click"/>
+            <StackPanel x:Name="Update" Grid.Row="1" Orientation="Vertical" IsVisibleChanged="Update_IsVisibleChanged" Visibility="Collapsed" Grid.ColumnSpan="2" Margin="200,0,0,0">
+                <TextBox x:Name="txtb_Fullname"  HorizontalAlignment="Left" Margin="0,17,0,0" FontSize="16" TextWrapping="Wrap" Text="txtb_Fullname"  VerticalAlignment="Top" Width="300" />
+                <TextBox x:Name="txtb_Telephone" HorizontalAlignment="Left" Margin="0,17,0,0" FontSize="16" TextWrapping="Wrap" Text="txtb_Telephone" VerticalAlignment="Top" Width="300" />
+                <TextBox x:Name="txtb_Email"     HorizontalAlignment="Left" Margin="0,17,0,0" FontSize="16" TextWrapping="Wrap" Text="txtb_Email"     VerticalAlignment="Top" Width="300" />
+                <TextBox x:Name="txtb_Birthday"  HorizontalAlignment="Left" Margin="0,17,0,0" FontSize="16" TextWrapping="Wrap" Text="txtb_Birthday"  VerticalAlignment="Top" Width="300" />
+                <TextBox x:Name="txtb_Password"  HorizontalAlignment="Left" Margin="0,17,0,0" FontSize="16" TextWrapping="Wrap" Text="txtb_Password"  VerticalAlignment="Top" Width="300" />
+                <Button x:Name="bt_Confirm" HorizontalAlignment="Left" Content="Confirm" Margin="100,55,0,0" Click="bt_Confirm_Click" Width="200" FontFamily="Times New Roman" FontSize="15" FontWeight="Bold" Background="#FF5BE5EF"/>
             </StackPanel>
         </Grid>
     </Grid>

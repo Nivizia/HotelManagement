@@ -67,6 +67,11 @@ namespace HotelManagement
                 MessageBox.Show("Invalid login. Please check your username and password.");
             }
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 
 }

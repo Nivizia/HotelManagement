@@ -24,6 +24,7 @@ namespace HotelManagement
         private readonly IBookReservationRepository _BookReserRepo = new BookReservationRepository();
         private readonly ICustomerRepository _CustomerRepo = new CustomerRepository();
         private Customer _customer;
+        private Button _selectedButton;
         public CustomerInterface(Customer customer)
         {
             InitializeComponent();
@@ -39,8 +40,34 @@ namespace HotelManagement
         {
         }
 
+        private void IsSelected(Button selectedButton)
+        {
+            // Custom colors (you can change these values)
+            Color defaultColor = (Color)ColorConverter.ConvertFromString("#FF5BE5EF");
+            Color highlightColor = (Color)ColorConverter.ConvertFromString("#FF00AFBD");
+
+            // Reset background of the previous selected button
+            if (_selectedButton != null)
+            {
+                _selectedButton.Background = new SolidColorBrush(defaultColor);
+            }
+
+            if (_selectedButton == selectedButton)
+            {
+                // If the same button is clicked, deselect it
+                _selectedButton = null;
+            }
+            else
+            {
+                // Set new selected button and change its background
+                _selectedButton = selectedButton;
+                _selectedButton.Background = new SolidColorBrush(highlightColor);
+            }
+        }
+
         private void bt_BoHi_Click(object sender, RoutedEventArgs e)
         {
+            IsSelected(bt_BoHi);
             if (dg_BoRe.Visibility == Visibility.Visible)
             {
                 dg_BoRe.Visibility = Visibility.Collapsed;
@@ -53,11 +80,14 @@ namespace HotelManagement
                 Title.Visibility = Visibility.Collapsed;
                 Placeholder.Visibility = Visibility.Collapsed;
                 Update.Visibility = Visibility.Collapsed;
+                bt_Cancel_Update.Visibility = Visibility.Collapsed;
+                bt_Update.Visibility = Visibility.Visible;
             }
         }
 
         private void bt_AccPro_Click(object sender, RoutedEventArgs e)
         {
+            IsSelected(bt_AccPro);
             if (Title.Visibility == Visibility.Visible || Placeholder.Visibility == Visibility.Visible)
             {
                 Title.Visibility = Visibility.Collapsed;
@@ -108,21 +138,23 @@ namespace HotelManagement
 
         private void bt_Update_Click(object sender, RoutedEventArgs e)
         {
-            if (Update.Visibility == Visibility.Visible)
-            {
-                Update.Visibility = Visibility.Collapsed;
-                Placeholder.Visibility = Visibility.Visible;
-            }
-            else if (Update.Visibility == Visibility.Collapsed)
-            {
-                Update.Visibility = Visibility.Visible;
-                Placeholder.Visibility = Visibility.Collapsed;
-                txtb_Fullname.Text = _customer.CustomerFullName;
-                txtb_Telephone.Text = _customer.Telephone;
-                txtb_Email.Text = _customer.EmailAddress;
-                txtb_Birthday.Text = _customer.CustomerBirthday.ToString();
-                txtb_Password.Text = _customer.Password;
-            }
+            Update.Visibility = Visibility.Visible;
+            Placeholder.Visibility = Visibility.Collapsed;
+            txtb_Fullname.Text = _customer.CustomerFullName;
+            txtb_Telephone.Text = _customer.Telephone;
+            txtb_Email.Text = _customer.EmailAddress;
+            txtb_Birthday.Text = _customer.CustomerBirthday.ToString();
+            txtb_Password.Text = _customer.Password;
+            bt_Update.Visibility = Visibility.Collapsed;
+            bt_Cancel_Update.Visibility = Visibility.Visible;
+        }
+
+        private void bt_Cancel_Update_Click(object sender, RoutedEventArgs e)
+        {
+            Update.Visibility = Visibility.Collapsed;
+            Placeholder.Visibility = Visibility.Visible;
+            bt_Cancel_Update.Visibility = Visibility.Collapsed;
+            bt_Update.Visibility = Visibility.Visible;
         }
 
         private void Update_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -134,11 +166,37 @@ namespace HotelManagement
             PH_Password.Content = _customer.Password;
         }
 
+        
         private void bt_Logout_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();
         }
+        /*
+        private void bt_BoHi_MouseEnter(object sender, MouseEventArgs e)
+        {
+            bt_BoHi.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF"));
+            System.Diagnostics.Debug.WriteLine("BoHi mouse enter");
+        }
+
+        private void bt_BoHi_MouseLeave(object sender, MouseEventArgs e)
+        {
+            bt_BoHi.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF5BE5EF"));
+            System.Diagnostics.Debug.WriteLine("BoHi mouse leave");
+        }
+
+        private void bt_AccPro_MouseEnter(object sender, MouseEventArgs e)
+        {
+            bt_AccPro.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF"));
+            System.Diagnostics.Debug.WriteLine("AccPro mouse enter");
+        }
+
+        private void bt_AccPro_MouseLeave(object sender, MouseEventArgs e)
+        {
+            bt_AccPro.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF5BE5EF"));
+            System.Diagnostics.Debug.WriteLine("AccPro mouse leave");
+        }
+        */
     }
 }
