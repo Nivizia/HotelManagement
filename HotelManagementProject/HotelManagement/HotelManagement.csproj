@@ -9,7 +9,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Images\sky-hotels-high-resolution-logo-transparent.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\Repositories\Repositories.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Images\sky-hotels-high-resolution-logo-transparent.png">
+	    <CopyToOutputDirectory></CopyToOutputDirectory>
+	  </Resource>
 	</ItemGroup>
 
 	<ItemGroup>
