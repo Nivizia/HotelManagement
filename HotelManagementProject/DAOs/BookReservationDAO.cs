@@ -9,7 +9,25 @@ namespace DAOs
 {
     public class BookReservationDAO
     {
-        public static List<BookingReservation> GetBookingReservationsByCustomerId(string customerId)
+
+        public static List<BookingReservation> GetBookingReservations()
+        {
+            try
+            {
+                using FuminiHotelManagementContext _context = new FuminiHotelManagementContext();
+                var bookingReservations = _context.BookingReservations.ToList();
+                return bookingReservations ?? new List<BookingReservation>();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error in DAOs/BookReservationDAO.cs -> GetBookingReservations(): {ex.Message}");
+                return new List<BookingReservation>();
+            }
+
+        }
+
+        public static List<BookingReservation> GetBookingReservationsByCustomerId(int customerId)
         {
             try
             {
@@ -26,12 +44,6 @@ namespace DAOs
                 return new List<BookingReservation>();
             }
             
-        }
-
-        public static List<BookingReservation> GetBookingReservationsByCustomerId(int customerId)
-        {
-            using FuminiHotelManagementContext context = new FuminiHotelManagementContext();
-            return context.BookingReservations.Where(x => x.CustomerId == customerId).ToList();
         }
     }
 }

@@ -33,8 +33,7 @@ namespace HotelManagement
 
         public void LoadBookingReservations()
         {
-            var bookingReservations = _repo.GetBookingReservations();
-            dg_BoRe.ItemsSource = bookingReservations;
+            dg_BoRe.ItemsSource = _repo.GetBookingReservations();
         }
 
         private void bt_BoHi_Click(object sender, RoutedEventArgs e)

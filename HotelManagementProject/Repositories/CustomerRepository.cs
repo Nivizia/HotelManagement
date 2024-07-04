@@ -9,12 +9,10 @@ namespace Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
-        public Customer? CheckLogin(string Email, string Password)
-        {
-            var customer = CustomerDao.CheckLogin(Email, Password);
-            return customer;
-        }
+        public Customer? CheckLogin(string Email, string Password) => CustomerDao.CheckLogin(Email, Password);
 
         public Customer? GetCustomerById(int id) => CustomerDao.GetCustomerById(id);
+
+        public bool UpdateCustomer(Customer updatedCustomer) => CustomerDao.UpdateCustomer(updatedCustomer);
     }
 }
