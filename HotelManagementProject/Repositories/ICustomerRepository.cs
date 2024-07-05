@@ -13,10 +13,11 @@ namespace Repositories
         public Customer? GetCustomerById(int id);
 
         public bool UpdateCustomer(Customer updatedCustomer);
+
         public void AddCustomer(Customer newCustomer);
 
         public List<Customer> GetCustomers();
 
-        public void DeleteCus(int customerId);
+        public bool DeleteCus(int customerId);
     }
 }

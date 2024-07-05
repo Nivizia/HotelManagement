@@ -46,7 +46,7 @@ namespace HotelManagement
             if (username.Equals(_defaultEmail, StringComparison.OrdinalIgnoreCase) && password == _defaultPassword)
             {
 
-                Management admin = new Management();
+                var admin = new AdminPanel();
                 admin.Show();
                 this.Close();
 

@@ -17,7 +17,7 @@ namespace Repositories
 
         public List<Customer> GetCustomers() => CustomerDao.GetAll();
 
-        public void DeleteCus(int customerId) => CustomerDao.DeleteCustomer(customerId);
+        public bool DeleteCus(int customerId) => CustomerDao.DeleteCustomer(customerId);
 
         public void AddCustomer(Customer newCustomer) => CustomerDao.AddCustomer(newCustomer);
     }

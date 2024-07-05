@@ -32,7 +32,7 @@ namespace DAOs
             }
             return customer;
         }
-        
+
         public static bool UpdateCustomer(Customer updatedCustomer)
         {
             try
@@ -63,7 +63,7 @@ namespace DAOs
             try
             {
                 using FuminiHotelManagementContext _context = new FuminiHotelManagementContext();
-                newCustomer.CustomerStatus = 1; 
+                newCustomer.CustomerStatus = 1;
                 _context.Customers.Add(newCustomer);
                 _context.SaveChanges();
             }
@@ -80,7 +80,7 @@ namespace DAOs
                 .Where(c => c.CustomerStatus == 1)
                 .ToList();
         }
-        public static void DeleteCustomer(int customerId)
+        public static bool DeleteCustomer(int customerId)
         {
             using FuminiHotelManagementContext db = new FuminiHotelManagementContext();
             var customer = db.Customers.SingleOrDefault(c => c.CustomerId == customerId);
@@ -88,7 +88,9 @@ namespace DAOs
             {
                 customer.CustomerStatus = 0;
                 db.SaveChanges();
+                return true;
             }
+            return false;
         }
     }
 }

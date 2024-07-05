@@ -1,0 +1,329 @@
+﻿<Window x:Class="HotelManagement.AdminPanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelManagement"
+        mc:Ignorable="d"
+        Title="Admin Panel" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="7*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel x:Name="Buttons" Grid.Column="0" Orientation="Vertical" Margin="10">
+            <Button x:Name="bt_Customers" Content="Customers" Margin="0,10,0,0" Click="bt_Customers_Click" />
+            <Button x:Name="bt_Rooms" Content="Rooms" Margin="0,10,0,0" Click="bt_Rooms_Click" />
+            <Button x:Name="bt_Reservations" Content="Reservations" Margin="0,10,0,0" />
+            <Button x:Name="bt_Logout" Content="Logout" Margin="0,10,0,0" Click="bt_Logout_Click"/>
+        </StackPanel>
+
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Customers Content -->
+            <StackPanel x:Name="sp_CusList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Visibility="Collapsed">
+                <ListView x:Name="lv_CusList" Height="200" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Customer ID" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding CustomerId}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Fullname" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding CustomerFullName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Telephone" Width="120">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Telephone}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Email Address" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding EmailAddress}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Birthday" Width="120">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding CustomerBirthday}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Status" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding CustomerStatus}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Password" Width="120">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Password}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Details" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="bt_CusDetails" Content="Details" Padding="5,2" Margin="5,0" HorizontalAlignment="Center" Click="bt_CusDetails_Click" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+
+            <StackPanel x:Name="sp_CusTitle" Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="50" Visibility="Collapsed">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Vertical">
+                        <Label x:Name="TT_CustomerID" Content="CustomerID:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_Fullname" Content="Fullname:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_Telephone" Content="Telephone:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_Email" Content="EmailAddress:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_Birthday" Content="CustomerBirthday:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_Status" Content="Status:" Margin="0,10,0,0"/>
+                        <Label x:Name="TT_Password" Content="Password:" Margin="0,10,0,0" />
+                        <Button x:Name="bt_CusUpdate" Content="Update" Margin="10,10,10,0" Click="bt_CusUpdate_Click"/>
+                        <Button x:Name="bt_CusDelete" Content="Delete" Margin="10,10,10,0" Click="bt_CusDelete_Click"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+
+            <StackPanel x:Name="sp_CusPlaceholder" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="50" Visibility="Collapsed">
+                <Label x:Name="PH_CustomerID" Content="CustomerIDPlaceHolder" HorizontalAlignment="Center" Margin="0,10,0,0" Width="180" />
+                <Label x:Name="PH_Fullname" Content="FullnamePlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_Telephone" Content="TelephonePlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_Email" Content="EmailPlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_Birthday" Content="BirthdayPlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_Status" Content="StatusPlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_Password" Content="PasswordPlaceHolder" Margin="0,10,0,0" />
+            </StackPanel>
+
+            <StackPanel x:Name="sp_CusUpdate" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="50" Visibility="Collapsed">
+                <Label x:Name="lbl_CustomerID" Content="CustomerID:" Margin="0,10,0,0" />
+                <TextBox x:Name="txtb_Fullname" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="txtb_Fullname" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_Telephone" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Telephone" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_Email" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Email" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_Birthday" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Birthday" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_Status" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Status" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_Password" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_Password" VerticalAlignment="Top" Width="120" />
+                <Button x:Name="bt_CusConfirm" Content="Confirm" Margin="10,10,10,0" Click="bt_CusConfirm_Click"/>
+            </StackPanel>
+
+            <!-- Rooms Content -->
+            <StackPanel x:Name="sp_FcRoomInfo" Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Margin="10" Visibility="Collapsed" HorizontalAlignment="Left">
+                <Button x:Name="bt_RoomInformation" Content="Room Information" Margin="0,0,10,0" Click="bt_RoomInformation_Click"/>
+                <Button x:Name="bt_RoomType" Content="Room Type" Margin="0" Click="bt_RoomType_Click"/>
+            </StackPanel>
+
+            <!-- Room Information -->
+            <StackPanel x:Name="sp_RoomList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Visibility="Collapsed">
+                <ListView x:Name="lv_RoomList" Height="200" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Room ID" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RoomId}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Room Number" Width="120">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RoomNumber}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Detail Description" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RoomDetailDescription}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Max Capacity" Width="120">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RoomMaxCapacity}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Room Type" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RoomType}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Status" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RoomStatus}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Price Per Day" Width="120">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RoomPricePerDay}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Details" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="bt_RoomDetails" Content="Details" Padding="5,2" Margin="5,0" HorizontalAlignment="Center" Click="bt_RoomDetails_Click" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+
+            <StackPanel x:Name="sp_RoomTitle" Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="50" Visibility="Collapsed">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Vertical">
+                        <Label x:Name="TT_RoomID" Content="RoomID:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_RoomNumber" Content="RoomNumber:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_RoomDetailDescription" Content="RoomDetailDescription:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_RoomMaxCapacity" Content="RoomMaxCapacity:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_RoomType" Content="RoomType:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_RoomStatus" Content="RoomStatus:" Margin="0,10,0,0"/>
+                        <Label x:Name="TT_RoomPricePerDay" Content="RoomPricePerDay:" Margin="0,10,0,0" />
+                        <Button x:Name="bt_RoomUpdate" Content="Update" Margin="10,10,10,0" Click="bt_RoomUpdate_Click"/>
+                        <Button x:Name="bt_RoomDelete" Content="Delete" Margin="10,10,10,0" Click="bt_RoomDelete_Click"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+
+            <StackPanel x:Name="sp_RoomPlaceholder" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="50" Visibility="Collapsed">
+                <Label x:Name="PH_RoomID" Content="RoomIDPlaceHolder" HorizontalAlignment="Center" Margin="0,10,0,0" Width="180" />
+                <Label x:Name="PH_RoomNumber" Content="RoomNumberPlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_RoomDetailDescription" Content="RoomDetailDescriptionPlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_RoomMaxCapacity" Content="RoomMaxCapacityPlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_RoomType" Content="RoomTypePlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_RoomStatus" Content="RoomStatusPlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_RoomPricePerDay" Content="RoomPricePerDayPlaceHolder" Margin="0,10,0,0" />
+            </StackPanel>
+
+            <StackPanel x:Name="sp_RoomUpdate" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="50" Visibility="Collapsed">
+                <Label x:Name="lbl_RoomID" Content="RoomID:" Margin="0,10,0,0" />
+                <TextBox x:Name="txtb_RoomNumber" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="txtb_RoomNumber" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_RoomDetailDescription" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_RoomDetailDescription" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_RoomMaxCapacity" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_RoomMaxCapacity" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_RoomType" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_RoomType" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_RoomStatus" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_RoomStatus" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_RoomPricePerDay" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_RoomPricePerDay" VerticalAlignment="Top" Width="120" />
+                <Button x:Name="bt_RoomConfirm" Content="Confirm" Margin="10,10,10,0" Click="bt_RoomConfirm_Click"/>
+            </StackPanel>
+
+            <!-- Room Types -->
+            <StackPanel x:Name="sp_RoomTypeList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Visibility="Collapsed">
+                <ListView x:Name="lv_RoomTypeList" Height="200" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Room Type ID" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RoomTypeId}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Room Type Name" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RoomTypeName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Description" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding TypeDescription}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Note" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding TypeNote}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Details" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="bt_RoomTypeDetails" Content="Details" Padding="5,2" Margin="5,0" HorizontalAlignment="Center" Click="bt_RoomTypeDetails_Click" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+
+            <!-- Title and details view for Room Type -->
+            <StackPanel x:Name="sp_RoomTypeTitle" Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="50" Visibility="Collapsed">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Vertical">
+                        <Label x:Name="TT_RoomTypeID" Content="RoomTypeID:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_RoomTypeName" Content="RoomTypeName:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_TypeDescription" Content="Description:" Margin="0,10,0,0" />
+                        <Label x:Name="TT_TypeNote" Content="Note:" Margin="0,10,0,0" />
+                        <Button x:Name="bt_RoomTypeUpdate" Content="Update" Margin="10,10,10,0" Click="bt_RoomTypeUpdate_Click"/>
+                        <Button x:Name="bt_RoomTypeDelete" Content="Delete" Margin="10,10,10,0" Click="bt_RoomTypeDelete_Click"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+
+            <!-- Placeholder for Room Type details -->
+            <StackPanel x:Name="sp_RoomTypePlaceholder" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="50" Visibility="Collapsed">
+                <Label x:Name="PH_RoomTypeID" Content="RoomTypeIDPlaceHolder" HorizontalAlignment="Center" Margin="0,10,0,0" Width="180" />
+                <Label x:Name="PH_RoomTypeName" Content="RoomTypeNamePlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_TypeDescription" Content="DescriptionPlaceHolder" Margin="0,10,0,0" />
+                <Label x:Name="PH_TypeNote" Content="NotePlaceHolder" Margin="0,10,0,0" />
+            </StackPanel>
+
+            <!-- Update view for Room Type -->
+            <StackPanel x:Name="sp_RoomTypeUpdate" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="50" Visibility="Collapsed">
+                <Label x:Name="lbl_RoomTypeID" Content="RoomTypeID:" Margin="0,10,0,0" />
+                <TextBox x:Name="txtb_RoomTypeName" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="txtb_RoomTypeName" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_TypeDescription" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_TypeDescription" VerticalAlignment="Top" Width="120" />
+                <TextBox x:Name="txtb_TypeNote" HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="txtb_TypeNote" VerticalAlignment="Top" Width="120" />
+                <Button x:Name="bt_RoomTypeConfirm" Content="Confirm" Margin="10,10,10,0" Click="bt_RoomTypeConfirm_Click"/>
+            </StackPanel>
+
+            <!-- Reservations Content -->
+            <StackPanel x:Name="sp_Reservations" Grid.Row="1" Grid.ColumnSpan="2" Margin="10" Visibility="Collapsed">
+                <!-- Reservation management here -->
+                <Button x:Name="bt_CreateReservation" Content="Create Reservation" Margin="10,0,0,0"/>
+                <DataGrid x:Name="dg_Reservations" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="0" Grid.ColumnSpan="2" Margin="10" Visibility="Collapsed" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
