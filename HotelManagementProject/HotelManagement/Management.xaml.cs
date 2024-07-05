@@ -26,7 +26,9 @@ namespace HotelManagement
 
         private void Button_Click_Customer(object sender, RoutedEventArgs e)
         {
-
+            Admin_Customer manaCus = new Admin_Customer();
+            manaCus.Show();
+            this.Close();
         }
 
         private void Button_Click_Room(object sender, RoutedEventArgs e)

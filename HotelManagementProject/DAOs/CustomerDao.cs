@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,38 @@ namespace DAOs
             {
                 Console.WriteLine($"Error in DAOs/CustomerDao.cs -> UpdateCustomer(Customer updatedCustomer): {ex.Message}");
                 return false;
+            }
+        }
+        public static void AddCustomer(Customer newCustomer)
+        {
+            try
+            {
+                using FuminiHotelManagementContext _context = new FuminiHotelManagementContext();
+                newCustomer.CustomerStatus = 1; 
+                _context.Customers.Add(newCustomer);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in DAOs/CustomerDao.cs -> AddCustomer(Customer newCustomer): {ex.Message}");
+                throw;
+            }
+        }
+        public static List<Customer> GetAll()
+        {
+            using FuminiHotelManagementContext db = new FuminiHotelManagementContext();
+            return db.Customers.Include(c => c.BookingReservations)
+                .Where(c => c.CustomerStatus == 1)
+                .ToList();
+        }
+        public static void DeleteCustomer(int customerId)
+        {
+            using FuminiHotelManagementContext db = new FuminiHotelManagementContext();
+            var customer = db.Customers.SingleOrDefault(c => c.CustomerId == customerId);
+            if (customer != null)
+            {
+                customer.CustomerStatus = 0;
+                db.SaveChanges();
             }
         }
     }

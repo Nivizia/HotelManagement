@@ -14,5 +14,11 @@ namespace Repositories
         public Customer? GetCustomerById(int id) => CustomerDao.GetCustomerById(id);
 
         public bool UpdateCustomer(Customer updatedCustomer) => CustomerDao.UpdateCustomer(updatedCustomer);
+
+        public List<Customer> GetCustomers() => CustomerDao.GetAll();
+
+        public void DeleteCus(int customerId) => CustomerDao.DeleteCustomer(customerId);
+
+        public void AddCustomer(Customer newCustomer) => CustomerDao.AddCustomer(newCustomer);
     }
 }
