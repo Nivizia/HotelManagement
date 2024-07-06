@@ -1,5 +1,6 @@
 ﻿using BusinessObjects.Models;
 using DAOs;
+using DAOs.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace Repositories
         public List<BookingReservation> GetBookingReservations() => BookReservationDAO.GetBookingReservations();
 
         public List<BookingReservation> GetBookingReservationsByCustomerId(int customerId) => BookReservationDAO.GetBookingReservationsByCustomerId(customerId);
+
+        public List<BookingReservationDTO> GetBookingReservationDTOs() => BookReservationDAO.GetBookingReservationDTOs();
     }
 }

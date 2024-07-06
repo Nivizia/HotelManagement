@@ -1,4 +1,6 @@
 ﻿using BusinessObjects.Models;
+using DAOs.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +45,32 @@ namespace DAOs
                 Console.WriteLine($"Error in DAOs/BookReservationDAO.cs -> GetBookingReservationsByCustomerId(string customerId): {ex.Message}");
                 return new List<BookingReservation>();
             }
-            
+
+        }
+
+        public static List<BookingReservationDTO> GetBookingReservationDTOs()
+        {
+            try
+            {
+                using FuminiHotelManagementContext _context = new FuminiHotelManagementContext();
+                var bookingReservations = _context.BookingReservations.Include(b => b.Customer).ToList();
+                var bookingReservationDTOs = bookingReservations.Select(b => new BookingReservationDTO
+                {
+                    BookingReservationId = b.BookingReservationId,
+                    BookingDate = b.BookingDate,
+                    TotalPrice = b.TotalPrice,
+                    CustomerFullName = b.Customer.CustomerFullName,
+                    BookingStatus = b.BookingStatus
+                }).ToList();
+                return bookingReservationDTOs ?? new List<BookingReservationDTO>();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error in DAOs/BookReservationDAO.cs -> GetBookingReservationDTOs(): {ex.Message}");
+                return new List<BookingReservationDTO>();
+            }
+
         }
     }
 }

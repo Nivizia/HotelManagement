@@ -4,6 +4,7 @@ using Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,6 +26,8 @@ namespace HotelManagement
         private readonly ICustomerRepository _repo = new CustomerRepository();
         private readonly IRoomInformationRepository _roomInfoRepo = new RoomInformationRepository();
         private readonly IRoomTypeRepository _roomTypeRepo = new RoomTypeRepository();
+        private readonly IBookReservationRepository _bookReservationRepo = new BookReservationRepository();
+        private readonly IBookingDetailRepository _bookingDetailRepo = new BookingDetailRepository();
 
         public AdminPanel()
         {
@@ -339,6 +342,42 @@ namespace HotelManagement
             sp_RoomTypePlaceholder.Visibility = Visibility.Collapsed;
             sp_RoomTypeUpdate.Visibility = Visibility.Collapsed;
             sp_FcRoomInfo.Visibility = Visibility.Collapsed;
+        }
+
+        private void bt_Reservations_Click(object sender, RoutedEventArgs e)
+        {
+            sp_Reservations.Visibility = Visibility.Visible;
+        }
+
+        private void bt_BookingReservation_Click(object sender, RoutedEventArgs e)
+        {
+            sp_BookingReservationList.Visibility = Visibility.Visible;
+            var bookingReservations = _bookReservationRepo.GetBookingReservations();
+            lv_BookingReservationList.ItemsSource = bookingReservations;
+        }
+
+        private void bt_BookingReservationDetails_Click(object sender, RoutedEventArgs e)
+        {
+            sp_BookingReservationList.Visibility = Visibility.Collapsed;
+            sp_BookingDetailList.Visibility = Visibility.Visible;
+            var button = sender as Button;
+            if (button != null)
+            {
+                var bookingReservation = button.DataContext as BookDetailDTO;
+                if (bookingReservation != null)
+                {
+                    var bookingDetails = _bookingDetailRepo.GetBookingDetailsByBookingId(bookingReservation.BookingReservationId);
+                    lv_BookingDetailList.ItemsSource = bookingDetails;
+                }
+            }
+        }
+
+        private void bt_BookingDetailReturn_Click(object sender, RoutedEventArgs e)
+        {
+            sp_BookingDetailList.Visibility = Visibility.Collapsed;
+            sp_BookingReservationList.Visibility = Visibility.Visible;
+            var bookingReservations = _bookReservationRepo.GetBookingReservations();
+            lv_BookingReservationList.ItemsSource = bookingReservations;
         }
     }
 }
