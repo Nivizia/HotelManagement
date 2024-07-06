@@ -4,17 +4,8 @@ using Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Printing;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HotelManagement
 {
@@ -29,68 +20,90 @@ namespace HotelManagement
         private readonly IBookReservationRepository _bookReservationRepo = new BookReservationRepository();
         private readonly IBookingDetailRepository _bookingDetailRepo = new BookingDetailRepository();
 
+        private List<StackPanel> _customerPanels;
+        private List<StackPanel> _roomPanels;
+        private List<StackPanel> _roomTypePanels;
+        private List<StackPanel> _reservationPanels;
+
         public AdminPanel()
         {
             InitializeComponent();
+            InitializePanels();
+        }
+
+        private void InitializePanels()
+        {
+            _customerPanels = new List<StackPanel>
+            {
+                sp_CusList, sp_CusTitle, sp_CusPlaceholder, sp_CusUpdate
+            };
+
+            _roomPanels = new List<StackPanel>
+            {
+                sp_RoomList, sp_RoomTitle, sp_RoomPlaceholder, sp_RoomUpdate, sp_FcRoomInfo
+            };
+
+            _roomTypePanels = new List<StackPanel>
+            {
+                sp_RoomTypeList, sp_RoomTypeTitle, sp_RoomTypePlaceholder, sp_RoomTypeUpdate
+            };
+
+            _reservationPanels = new List<StackPanel>
+            {
+                sp_BookingReservationList, sp_BookingDetailList, sp_Reservations
+            };
+        }
+
+        private void ShowPanel(StackPanel panel)
+        {
+            HideAllPanels();
+            panel.Visibility = Visibility.Visible;
+        }
+
+        private void HideAllPanels()
+        {
+            foreach (var panel in _customerPanels.Concat(_roomPanels).Concat(_roomTypePanels).Concat(_reservationPanels))
+            {
+                panel.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void bt_Customers_Click(object sender, RoutedEventArgs e)
         {
-            HideAllPanels();
+            ShowPanel(sp_CusList);
             var customers = _repo.GetCustomers();
             lv_CusList.ItemsSource = customers;
-            sp_CusList.Visibility = Visibility.Visible;
         }
 
         private void bt_CusDetails_Click(object sender, RoutedEventArgs e)
         {
-            HideAllPanels();
-            sp_CusTitle.Visibility = Visibility.Visible;
+            ShowPanel(sp_CusTitle);
             sp_CusPlaceholder.Visibility = Visibility.Visible;
 
             var button = sender as Button;
-            if (button != null)
+            var customer = button?.DataContext as Customer;
+            if (customer != null)
             {
-                var customer = button.DataContext as Customer;
-                if (customer != null)
-                {
-                    PH_CustomerID.Content = customer.CustomerId;
-                    PH_Fullname.Content = customer.CustomerFullName;
-                    PH_Telephone.Content = customer.Telephone;
-                    PH_Email.Content = customer.EmailAddress;
-                    PH_Birthday.Content = customer.CustomerBirthday;
-                    PH_Status.Content = customer.CustomerStatus;
-                    PH_Password.Content = customer.Password;
-                }
+                PH_CustomerID.Content = customer.CustomerId;
+                PH_Fullname.Content = customer.CustomerFullName;
+                PH_Telephone.Content = customer.Telephone;
+                PH_Email.Content = customer.EmailAddress;
+                PH_Birthday.Content = customer.CustomerBirthday;
+                PH_Status.Content = customer.CustomerStatus;
+                PH_Password.Content = customer.Password;
             }
         }
 
         private void bt_CusUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (sp_CusUpdate.Visibility == Visibility.Visible)
-            {
-                sp_CusUpdate.Visibility = Visibility.Collapsed;
-                sp_CusPlaceholder.Visibility = Visibility.Visible;
-            }
-            else if (sp_CusUpdate.Visibility == Visibility.Collapsed)
-            {
-                sp_CusUpdate.Visibility = Visibility.Visible;
-                sp_CusPlaceholder.Visibility = Visibility.Collapsed;
-                lbl_CustomerID.Content = PH_CustomerID.Content;
-                txtb_Fullname.Text = PH_Fullname.Content.ToString();
-                txtb_Telephone.Text = PH_Telephone.Content.ToString();
-                txtb_Email.Text = PH_Email.Content.ToString();
-                txtb_Birthday.Text = PH_Birthday.Content.ToString();
-                txtb_Status.Text = PH_Status.Content.ToString();
-                txtb_Password.Text = PH_Password.Content.ToString();
-            }
-        }
-
-        private void bt_Logout_Click(object sender, RoutedEventArgs e)
-        {
-            var main = new MainWindow();
-            main.Show();
-            this.Close();
+            ToggleVisibility(sp_CusUpdate, sp_CusPlaceholder);
+            lbl_CustomerID.Content = PH_CustomerID.Content;
+            txtb_Fullname.Text = PH_Fullname.Content.ToString();
+            txtb_Telephone.Text = PH_Telephone.Content.ToString();
+            txtb_Email.Text = PH_Email.Content.ToString();
+            txtb_Birthday.Text = PH_Birthday.Content.ToString();
+            txtb_Status.Text = PH_Status.Content.ToString();
+            txtb_Password.Text = PH_Password.Content.ToString();
         }
 
         private void bt_CusConfirm_Click(object sender, RoutedEventArgs e)
@@ -141,59 +154,45 @@ namespace HotelManagement
 
         private void bt_Rooms_Click(object sender, RoutedEventArgs e)
         {
-            HideAllPanels();
-            sp_FcRoomInfo.Visibility = Visibility.Visible;
+            ShowPanel(sp_FcRoomInfo);
         }
 
         private void bt_RoomInformation_Click(object sender, RoutedEventArgs e)
         {
-            HideAllPanels();
+            ShowPanel(sp_RoomList);
             var roominfos = _roomInfoRepo.GetAll();
             lv_RoomList.ItemsSource = roominfos;
-            sp_RoomList.Visibility = Visibility.Visible;
         }
 
         private void bt_RoomDetails_Click(object sender, RoutedEventArgs e)
         {
-            HideAllPanels();
-            sp_RoomTitle.Visibility = Visibility.Visible;
+            ShowPanel(sp_RoomTitle);
             sp_RoomPlaceholder.Visibility = Visibility.Visible;
+
             var button = sender as Button;
-            if (button != null)
+            var roominfo = button?.DataContext as RoomInfoDTO;
+            if (roominfo != null)
             {
-                var roominfo = button.DataContext as RoomInfoDTO;
-                if (roominfo != null)
-                {
-                    PH_RoomID.Content = roominfo.RoomId;
-                    PH_RoomNumber.Content = roominfo.RoomNumber;
-                    PH_RoomDetailDescription.Content = roominfo.RoomDetailDescription;
-                    PH_RoomMaxCapacity.Content = roominfo.RoomMaxCapacity;
-                    PH_RoomType.Content = roominfo.RoomType;
-                    PH_RoomStatus.Content = roominfo.RoomStatus;
-                    PH_RoomPricePerDay.Content = roominfo.RoomPricePerDay;
-                }
+                PH_RoomID.Content = roominfo.RoomId;
+                PH_RoomNumber.Content = roominfo.RoomNumber;
+                PH_RoomDetailDescription.Content = roominfo.RoomDetailDescription;
+                PH_RoomMaxCapacity.Content = roominfo.RoomMaxCapacity;
+                PH_RoomType.Content = roominfo.RoomType;
+                PH_RoomStatus.Content = roominfo.RoomStatus;
+                PH_RoomPricePerDay.Content = roominfo.RoomPricePerDay;
             }
         }
 
         private void bt_RoomUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (sp_RoomUpdate.Visibility == Visibility.Visible)
-            {
-                sp_RoomUpdate.Visibility = Visibility.Collapsed;
-                sp_RoomPlaceholder.Visibility = Visibility.Visible;
-            }
-            else if (sp_RoomUpdate.Visibility == Visibility.Collapsed)
-            {
-                sp_RoomUpdate.Visibility = Visibility.Visible;
-                sp_RoomPlaceholder.Visibility = Visibility.Collapsed;
-                lbl_RoomID.Content = PH_RoomID.Content;
-                txtb_RoomNumber.Text = PH_RoomNumber.Content.ToString();
-                txtb_RoomDetailDescription.Text = PH_RoomDetailDescription.Content.ToString();
-                txtb_RoomMaxCapacity.Text = PH_RoomMaxCapacity.Content.ToString();
-                txtb_RoomType.Text = PH_RoomType.Content.ToString();
-                txtb_RoomStatus.Text = PH_RoomStatus.Content.ToString();
-                txtb_RoomPricePerDay.Text = PH_RoomPricePerDay.Content.ToString();
-            }
+            ToggleVisibility(sp_RoomUpdate, sp_RoomPlaceholder);
+            lbl_RoomID.Content = PH_RoomID.Content;
+            txtb_RoomNumber.Text = PH_RoomNumber.Content.ToString();
+            txtb_RoomDetailDescription.Text = PH_RoomDetailDescription.Content.ToString();
+            txtb_RoomMaxCapacity.Text = PH_RoomMaxCapacity.Content.ToString();
+            txtb_RoomType.Text = PH_RoomType.Content.ToString();
+            txtb_RoomStatus.Text = PH_RoomStatus.Content.ToString();
+            txtb_RoomPricePerDay.Text = PH_RoomPricePerDay.Content.ToString();
         }
 
         private void bt_RoomConfirm_Click(object sender, RoutedEventArgs e)
@@ -244,39 +243,27 @@ namespace HotelManagement
 
         private void bt_RoomTypeDetails_Click(object sender, RoutedEventArgs e)
         {
-            HideAllPanels();
-            sp_RoomTypeTitle.Visibility = Visibility.Visible;
+            ShowPanel(sp_RoomTypeTitle);
             sp_RoomTypePlaceholder.Visibility = Visibility.Visible;
+
             var button = sender as Button;
-            if (button != null)
+            var roomType = button?.DataContext as RoomType;
+            if (roomType != null)
             {
-                var roomType = button.DataContext as RoomType;
-                if (roomType != null)
-                {
-                    PH_RoomTypeID.Content = roomType.RoomTypeId;
-                    PH_RoomTypeName.Content = roomType.RoomTypeName;
-                    PH_TypeDescription.Content = roomType.TypeDescription;
-                    PH_TypeNote.Content = roomType.TypeNote;
-                }
+                PH_RoomTypeID.Content = roomType.RoomTypeId;
+                PH_RoomTypeName.Content = roomType.RoomTypeName;
+                PH_TypeDescription.Content = roomType.TypeDescription;
+                PH_TypeNote.Content = roomType.TypeNote;
             }
         }
 
         private void bt_RoomTypeUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (sp_RoomTypeUpdate.Visibility == Visibility.Visible)
-            {
-                sp_RoomTypeUpdate.Visibility = Visibility.Collapsed;
-                sp_RoomTypePlaceholder.Visibility = Visibility.Visible;
-            }
-            else if (sp_RoomTypeUpdate.Visibility == Visibility.Collapsed)
-            {
-                sp_RoomTypeUpdate.Visibility = Visibility.Visible;
-                sp_RoomTypePlaceholder.Visibility = Visibility.Collapsed;
-                lbl_RoomTypeID.Content = PH_RoomTypeID.Content;
-                txtb_RoomTypeName.Text = PH_RoomTypeName.Content.ToString();
-                txtb_TypeDescription.Text = PH_TypeDescription.Content.ToString();
-                txtb_TypeNote.Text = PH_TypeNote.Content.ToString();
-            }
+            ToggleVisibility(sp_RoomTypeUpdate, sp_RoomTypePlaceholder);
+            lbl_RoomTypeID.Content = PH_RoomTypeID.Content;
+            txtb_RoomTypeName.Text = PH_RoomTypeName.Content.ToString();
+            txtb_TypeDescription.Text = PH_TypeDescription.Content.ToString();
+            txtb_TypeNote.Text = PH_TypeNote.Content.ToString();
         }
 
         private void bt_RoomTypeConfirm_Click(object sender, RoutedEventArgs e)
@@ -321,63 +308,62 @@ namespace HotelManagement
 
         private void bt_RoomType_Click(object sender, RoutedEventArgs e)
         {
-            HideAllPanels();
+            ShowPanel(sp_RoomTypeList);
             var roomtypes = _roomTypeRepo.GetRoomTypes();
             lv_RoomTypeList.ItemsSource = roomtypes;
-            sp_RoomTypeList.Visibility = Visibility.Visible;
-        }
-
-        private void HideAllPanels()
-        {
-            sp_CusList.Visibility = Visibility.Collapsed;
-            sp_CusTitle.Visibility = Visibility.Collapsed;
-            sp_CusPlaceholder.Visibility = Visibility.Collapsed;
-            sp_CusUpdate.Visibility = Visibility.Collapsed;
-            sp_RoomList.Visibility = Visibility.Collapsed;
-            sp_RoomTitle.Visibility = Visibility.Collapsed;
-            sp_RoomPlaceholder.Visibility = Visibility.Collapsed;
-            sp_RoomUpdate.Visibility = Visibility.Collapsed;
-            sp_RoomTypeList.Visibility = Visibility.Collapsed;
-            sp_RoomTypeTitle.Visibility = Visibility.Collapsed;
-            sp_RoomTypePlaceholder.Visibility = Visibility.Collapsed;
-            sp_RoomTypeUpdate.Visibility = Visibility.Collapsed;
-            sp_FcRoomInfo.Visibility = Visibility.Collapsed;
         }
 
         private void bt_Reservations_Click(object sender, RoutedEventArgs e)
         {
-            sp_Reservations.Visibility = Visibility.Visible;
+            ShowPanel(sp_Reservations);
         }
 
         private void bt_BookingReservation_Click(object sender, RoutedEventArgs e)
         {
-            sp_BookingReservationList.Visibility = Visibility.Visible;
-            var bookingReservations = _bookReservationRepo.GetBookingReservations();
+            ShowPanel(sp_BookingReservationList);
+            var bookingReservations = _bookReservationRepo.GetBookingReservationDTOs();
             lv_BookingReservationList.ItemsSource = bookingReservations;
         }
 
         private void bt_BookingReservationDetails_Click(object sender, RoutedEventArgs e)
         {
-            sp_BookingReservationList.Visibility = Visibility.Collapsed;
-            sp_BookingDetailList.Visibility = Visibility.Visible;
+            ShowPanel(sp_BookingDetailList);
+            bt_BookingDetailReturn.Visibility = Visibility.Visible;
             var button = sender as Button;
-            if (button != null)
+            var bookingReservation = button?.DataContext as BookingReservationDTO;
+            if (bookingReservation != null)
             {
-                var bookingReservation = button.DataContext as BookDetailDTO;
-                if (bookingReservation != null)
-                {
-                    var bookingDetails = _bookingDetailRepo.GetBookingDetailsByBookingId(bookingReservation.BookingReservationId);
-                    lv_BookingDetailList.ItemsSource = bookingDetails;
-                }
+                var bookingDetails = _bookingDetailRepo.GetBookingDetailsByBookingId(bookingReservation.BookingReservationId);
+                lv_BookingDetailList.ItemsSource = bookingDetails;
             }
         }
 
         private void bt_BookingDetailReturn_Click(object sender, RoutedEventArgs e)
         {
-            sp_BookingDetailList.Visibility = Visibility.Collapsed;
-            sp_BookingReservationList.Visibility = Visibility.Visible;
+            ShowPanel(sp_BookingReservationList);
             var bookingReservations = _bookReservationRepo.GetBookingReservations();
             lv_BookingReservationList.ItemsSource = bookingReservations;
+        }
+
+        private void bt_BookingDetail_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPanel(sp_BookingDetailList);
+            var bookingDetails = _bookingDetailRepo.GetBookingDetails();
+            lv_BookingDetailList.ItemsSource = bookingDetails;
+            bt_BookingDetailReturn.Visibility = Visibility.Collapsed;
+        }
+
+        private void ToggleVisibility(UIElement elementToShow, UIElement elementToHide)
+        {
+            elementToShow.Visibility = elementToShow.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            elementToHide.Visibility = elementToHide.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void bt_Logout_Click(object sender, RoutedEventArgs e)
+        {
+            var main = new MainWindow();
+            main.Show();
+            this.Close();
         }
     }
 }

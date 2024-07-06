@@ -1,4 +1,5 @@
-﻿using DAOs.DTOs;
+﻿using BusinessObjects.Models;
+using DAOs.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace Repositories
     public interface IBookingDetailRepository
     {
         public List<BookDetailDTO> GetBookingDetailsByBookingId(int BookingReservationID);
+
+        public List<BookDetailDTO> GetBookingDetails();
     }
 }

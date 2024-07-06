@@ -21,7 +21,7 @@ namespace DAOs
                 var bookingDetailDTOs = bookingDetails.Select(b => new BookDetailDTO
                 {
                     BookingReservationId = b.BookingReservationId,
-                    RoomNumer = b.Room.RoomNumber,
+                    RoomNumber = b.Room.RoomNumber,
                     StartDate = b.StartDate,
                     EndDate = b.EndDate,
                     ActualPrice = b.ActualPrice
@@ -31,6 +31,29 @@ namespace DAOs
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in DAOs/BookingDetailDAO.cs -> GetBookDetailDTOs(): {ex.Message}");
+                return new List<BookDetailDTO>();
+            }
+        }
+
+        public static List<BookDetailDTO> GetBookingDetails()
+        {
+            try
+            {
+                using FuminiHotelManagementContext context = new FuminiHotelManagementContext();
+                var bookingDetails = context.BookingDetails.Include(b => b.Room).ToList();
+                var bookingDetailDTOs = bookingDetails.Select(b => new BookDetailDTO
+                {
+                    BookingReservationId = b.BookingReservationId,
+                    RoomNumber = b.Room.RoomNumber,
+                    StartDate = b.StartDate,
+                    EndDate = b.EndDate,
+                    ActualPrice = b.ActualPrice
+                }).ToList();
+                return bookingDetailDTOs ?? new List<BookDetailDTO>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in DAOs/BookingDetailDAO.cs -> GetBookingDetails(): {ex.Message}");
                 return new List<BookDetailDTO>();
             }
         }

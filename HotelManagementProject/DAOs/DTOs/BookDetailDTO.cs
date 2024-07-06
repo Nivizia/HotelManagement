@@ -10,7 +10,7 @@ namespace DAOs.DTOs
     {
         public int BookingReservationId { get; set; }
 
-        public string? RoomNumer { get; set; }
+        public string? RoomNumber { get; set; }
 
         public DateOnly StartDate { get; set; }
 

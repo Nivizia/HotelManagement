@@ -320,17 +320,17 @@
             <!-- Reservations Content -->
             <StackPanel x:Name="sp_Reservations" Orientation="Horizontal" Grid.Row="1" Margin="10" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Button x:Name="bt_BookingReservation" Content="Booking Reservation" Margin="0,0,0,0" Click="bt_BookingReservation_Click"/>
-                <Button x:Name="bt_BookingDetail" Content="Booking Detail" Margin="10,0,0,0"/>
+                <Button x:Name="bt_BookingDetail" Content="Booking Detail" Margin="10,0,0,0" Click="bt_BookingDetail_Click"/>
             </StackPanel>
 
-            <StackPanel x:Name="sp_BookingReservationList" Grid.Row="1" Margin="10" Visibility="Collapsed" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                <ListView x:Name="lv_BookingReservationList" Height="200" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <StackPanel x:Name="sp_BookingReservationList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Visibility="Collapsed">
+                <ListView x:Name="lv_BookingReservationList" VerticalAlignment="Stretch">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Booking Reservation ID" Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding BookingReservationID}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock Text="{Binding BookingReservationId}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -374,14 +374,14 @@
                 </ListView>
             </StackPanel>
 
-            <StackPanel x:Name="sp_BookingDetailList" Grid.Row="1" Margin="10" Visibility="Collapsed" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                <ListView x:Name="lv_BookingDetailList" Height="200" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <StackPanel x:Name="sp_BookingDetailList"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Visibility="Collapsed">
+                <ListView x:Name="lv_BookingDetailList" VerticalAlignment="Stretch">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Booking Reservation ID" Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding BookingReservationID}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock Text="{Binding BookingReservationId}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -416,7 +416,7 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button x:Name="bt_BookingDetailReturn" Content="Confirm" Margin="10,10,10,0" Click="bt_BookingDetailReturn_Click" HorizontalAlignment="Right"/>
+                <Button x:Name="bt_BookingDetailReturn" Content="Return" Margin="10,10,10,0" Click="bt_BookingDetailReturn_Click" HorizontalAlignment="Right"/>
             </StackPanel>
         </Grid>
     </Grid>
