@@ -20,6 +20,8 @@ namespace HotelManagement
         private readonly IBookReservationRepository _bookReservationRepo = new BookReservationRepository();
         private readonly IBookingDetailRepository _bookingDetailRepo = new BookingDetailRepository();
 
+        private Customer _customer;
+
         private List<StackPanel> _customerPanels;
         private List<StackPanel> _roomPanels;
         private List<StackPanel> _roomTypePanels;
@@ -83,14 +85,17 @@ namespace HotelManagement
             var button = sender as Button;
             var customer = button?.DataContext as Customer;
             if (customer != null)
+                _customer = customer;
+
+            if (_customer != null)
             {
-                PH_CustomerID.Content = customer.CustomerId;
-                PH_Fullname.Content = customer.CustomerFullName;
-                PH_Telephone.Content = customer.Telephone;
-                PH_Email.Content = customer.EmailAddress;
-                PH_Birthday.Content = customer.CustomerBirthday;
-                PH_Status.Content = customer.CustomerStatus;
-                PH_Password.Content = customer.Password;
+                PH_CustomerID.Content = _customer.CustomerId;
+                PH_Fullname.Content = _customer.CustomerFullName;
+                PH_Telephone.Content = _customer.Telephone;
+                PH_Email.Content = _customer.EmailAddress;
+                PH_Birthday.Content = _customer.CustomerBirthday;
+                PH_Status.Content = _customer.CustomerStatus;
+                PH_Password.Content = _customer.Password;
             }
         }
 
@@ -139,8 +144,7 @@ namespace HotelManagement
 
         private void bt_CusDelete_Click(object sender, RoutedEventArgs e)
         {
-            var CusID = TT_CustomerID.Content;
-            if (_repo.DeleteCus(Convert.ToInt32(CusID)))
+            if (_repo.DeleteCus(_customer.CustomerId))
             {
                 MessageBox.Show("Delete successfully!");
                 sp_CusTitle.Visibility = Visibility.Collapsed;
